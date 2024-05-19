@@ -3,53 +3,60 @@ import "./App.css";
 import ContactForm from "./components/ContactForm/ContactForm";
 import ContactList from "./components/ContactList/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
-import initialContactsList from "./contactsList.json";
-import { useSelector } from "react-redux";
+// import initialContactsList from "./contactsList.json";
+import { useDispatch, useSelector } from "react-redux";
+
 
 function App() {
-  const hello = useSelector((state) => state.filters.name)
-  const [searchValue, setSearchValue] = useState("");
-  const [contactsList, setContactsList] = useState(() => {
-    const savedContactsList = window.localStorage.getItem(
-      "saved-contacts-list"
-    );
-    if (savedContactsList !== null) {
-      return JSON.parse(savedContactsList);
-    }
+  const dispatch = useDispatch();
 
-    return initialContactsList;
-  });
+  // const [searchValue, setSearchValue] = useState("");
+  // const [contactsList, setContactsList] = useState(() => {
+  //   const savedContactsList = window.localStorage.getItem(
+  //     "saved-contacts-list"
+  //   );
+  //   if (savedContactsList !== null) {
+  //     return JSON.parse(savedContactsList);
+  //   }
 
-  useEffect(() => {
-    window.localStorage.setItem(
-      "saved-contacts-list",
-      JSON.stringify(contactsList)
-    );
-  }, [contactsList]);
+  //   return initialContactsList;
+  // });
 
-  const filteredContacts = contactsList.filter((contact) =>
-    contact.name.toLowerCase().includes(searchValue.toLowerCase())
-  );
+  // useEffect(() => {
+  //   window.localStorage.setItem(
+  //     "saved-contacts-list",
+  //     JSON.stringify(contactsList)
+  //   );
+  // }, [contactsList]);
 
-  const addContact = (newContact) => {
-    setContactsList((prevContactsList) => {
-      return [...prevContactsList, newContact];
-    });
-  };
+  // const filteredContacts = contactsList.filter((contact) =>
+  //   contact.name.toLowerCase().includes(searchValue.toLowerCase())
+  // );
 
-  const deleteContact = (contactId) => {
-    setContactsList((prevContactsList) => {
-      return prevContactsList.filter((contact) => contact.id !== contactId);
-    });
-  };
+  // const addContact = (newContact) => {
+  //   setContactsList((prevContactsList) => {
+  //     return [...prevContactsList, newContact];
+  //   });
+  // };
+
+  // const deleteContact = (contactId) => {
+  //   setContactsList((prevContactsList) => {
+  //     return prevContactsList.filter((contact) => contact.id !== contactId);
+  //   });
+  // };
 
   return (
+    // <div className="container">
+    //   <h1>Phonebook</h1>
+    //   <ContactForm onAdd={addContact} />
+    //   <SearchBox inputValue={searchValue} onSearch={setSearchValue} />
+    //   <ContactList contacts={filteredContacts} onDelete={deleteContact} />
+    // </div>
     <div className="container">
       <h1>Phonebook</h1>
-      <h1>{hello}</h1>
-      <ContactForm onAdd={addContact} />
-      <SearchBox inputValue={searchValue} onSearch={setSearchValue} />
-      <ContactList contacts={filteredContacts} onDelete={deleteContact} />
+      <ContactForm />
+      <SearchBox />
+      <ContactList />
     </div>
   );
 }
