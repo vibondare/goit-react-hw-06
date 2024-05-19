@@ -16,7 +16,6 @@ export default function SearchBox() {
         type="text"
         className={css.input}
         id={inputId}
-        // value={g}
         onChange={(event) => dispatch(changeFilter(event.target.value))}
       />
     </div>
